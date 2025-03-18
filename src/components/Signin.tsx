@@ -1,4 +1,4 @@
-import { Button, TextInput } from '@mantine/core'
+import { Box, Button, Center, TextInput } from '@mantine/core'
 import { useRef, useState } from 'react'
 import { MdAlternateEmail, MdPassword } from 'react-icons/md'
 
@@ -60,39 +60,40 @@ const SignIn = ({ onSubmit }: ISigninProps) => {
   }
 
   return (
-    <div>
-      <h1>Авторизация</h1>
-
-      <form ref={formRef} onSubmit={handleSubmit}>
-        {loginForm.map((item) => (
-          <TextInput
-            key={item.name}
-            name={item.name}
-            placeholder={item.placeholder}
-            label={item.label}
-            description={item.description}
-            error={
-              isSumbitError && item.errorRule && item.errorRule(inputs.current[item.name])
-                ? item.errorText
-                : ''
-            }
-            variant="default"
-            radius="xs"
-            size="xs"
-            disabled={false}
-            withAsterisk
-            type={item.type}
-            icon={item.icon}
-            onChange={(e) => handleChangeInput(item.name, e)}
-            required
-          />
-        ))}
-
-        <p>
-          <Button type="submit">Войти</Button>
-        </p>
-      </form>
-    </div>
+    <Center style={{ flexDirection: 'column' }}>
+      <Box>
+        <h1>Авторизация</h1>
+      </Box>
+      <Box>
+        <form ref={formRef} onSubmit={handleSubmit}>
+          {loginForm.map((item) => (
+            <TextInput
+              key={item.name}
+              name={item.name}
+              placeholder={item.placeholder}
+              label={item.label}
+              description={item.description}
+              error={
+                isSumbitError && item.errorRule && item.errorRule(inputs.current[item.name])
+                  ? item.errorText
+                  : ''
+              }
+              variant="default"
+              radius="xs"
+              size="xs"
+              disabled={false}
+              withAsterisk
+              type={item.type}
+              onChange={(e) => handleChangeInput(item.name, e)}
+              required
+            />
+          ))}
+          <p>
+            <Button type="submit">Войти</Button>
+          </p>
+        </form>
+      </Box>
+    </Center>
   )
 }
 
