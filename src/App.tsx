@@ -1,18 +1,19 @@
 import AuthProvider from '@/contexts/AuthProvider'
 import ViewRouter from '@/router'
-import '@mantine/core/styles.css';
+import '@mantine/core/styles.css'
 
-import { createTheme, MantineProvider } from '@mantine/core';
+import { createTheme, MantineProvider } from '@mantine/core'
+import StoreContextProvider from '@/contexts/StoreContextProvider'
 
-const theme = createTheme({
-  /** Your theme override here */
-});
+const theme = createTheme({})
 
 export default function App() {
   return (
     <MantineProvider theme={theme}>
       <AuthProvider>
-        <ViewRouter />
+        <StoreContextProvider>
+          <ViewRouter />
+        </StoreContextProvider>
       </AuthProvider>
     </MantineProvider>
   )
