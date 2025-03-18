@@ -1,12 +1,9 @@
-import CategoryPage from '@/pages/CategoryPage'
-import CharacterPage from '@/pages/CharacterPage'
-import LocationPage from '@/pages/LocationPage'
-import EpisodePage from '@/pages/EpisodePage'
 import IndexPage from '@/pages/IndexPage'
 import LoginPage from '@/pages/LoginPage'
 import MainLayout from '@/layouts/MainLayout'
 import PrivateRoute from '@/components/PrivateRoute'
 import NotFoundPage from '@/pages/NotFoundPage'
+import NotePage from '@/pages/NotePage'
 
 const routes = [
   {
@@ -15,7 +12,12 @@ const routes = [
       {
         index: true,
         element: <IndexPage />,
-      }],
+      },
+      {
+        path: '/note/:id',
+        element: <NotePage />,
+      },
+    ],
   },
   {
     path: '/login',
