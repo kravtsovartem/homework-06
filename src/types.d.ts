@@ -1,34 +1,3 @@
-interface ICharacter {
-	id: number
-	name: string
-	status: string
-	species: string
-	type: string
-	gender: string
-	image: string
-	created: string
-}
-
-interface IEpisode {
-	id: number
-	name: string
-	air_date: string
-	episode: string
-	created: string
-}
-
-interface ILocation {
-	id: number
-	name: string
-	type: string
-	dimension: string
-	created: string
-}
-
-interface ICategory extends ICharacter, IEpisode, ILocation {
-}
-
-
 interface IMenu {
 	name: string
 	link: string
@@ -65,4 +34,15 @@ interface IFormInputs {
 	errorText?: string
 	required?: boolean
 	values?: IInputValues[]
+}
+
+interface INote {
+	id: number
+	name: string
+	text: string
+}
+
+interface IStore {
+	notes: INote[]
+	setNoteText(id: number, text: string): void
 }
