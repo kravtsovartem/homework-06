@@ -11,7 +11,7 @@ export default function IndexPage() {
     if (notes?.length && notes?.length != 0) {
       navigate(`/note/${notes[notes.length - 1].id}`)
     }
-  }, [notes])
+  }, [navigate, notes])
 
   return (
     <div>
