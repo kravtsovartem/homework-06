@@ -1,65 +1,47 @@
-import useStore from '@/hooks/useStore'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
-import {
-  MDXEditor,
-  toolbarPlugin,
-  headingsPlugin,
-  listsPlugin,
-  quotePlugin,
-  thematicBreakPlugin,
-  UndoRedo,
-  diffSourcePlugin,
-  DiffSourceToggleWrapper,
-} from '@mdxeditor/editor'
-import '@mdxeditor/editor/style.css'
-import { Button } from '@mantine/core'
+import { Button, Group, Space, TextInput } from '@mantine/core'
+import useNotes from '@/hooks/useNotes'
+import MarkdownEditor from '@/components/MarkdownEditor'
 
 function NotePage() {
   const [isEdit, setEdit] = useState(true)
 
-  const store = useStore()
   const params = useParams()
-  let note = store.notes.find((note) => note.id === Number(params.id))
-	note = note ?? { id: 0, name: '', text: '' }
+	const navigate = useNavigate()
+
+  const id = Number(params?.id)
+
+  const { note, updateTextNote, updateNameNote, removeNote } = useNotes(id)
 
   const handleChangeEditMode = () => {
     setEdit((prevState) => !prevState)
   }
 
-  const handleChangeNoteText = (text: string) => {
-    store.setNoteText(note?.id, text)
+  const handleRemoveNote = () => {
+		navigate('/')
+    removeNote(id)
   }
+
+	const handleUpdateTextNote = (text: string) => {
+		updateTextNote(id, text)
+	}
+
+	const handleUpdateNameNote = (name: string) => {
+		updateNameNote(id, name)
+	}
 
   return (
     <>
-      <Button onClick={handleChangeEditMode}>Редактировать</Button>
-      <p>{note?.text}</p>
-      <MDXEditor
-        onChange={handleChangeNoteText}
-        readOnly={!isEdit}
-        markdown={note?.text ?? '# error'}
-        plugins={[
-          headingsPlugin(),
-          listsPlugin(),
-          quotePlugin(),
-          thematicBreakPlugin(),
-          diffSourcePlugin(),
-          toolbarPlugin({
-            toolbarClassName: 'my-classname',
-            toolbarContents: () => (
-              <>
-                {isEdit && (
-                  <DiffSourceToggleWrapper options={['source']}>
-                    <UndoRedo />
-                  </DiffSourceToggleWrapper>
-                )}
-              </>
-            ),
-          }),
-        ]}
-      />
+      <Group>
+        <Button onClick={handleChangeEditMode}>Редактировать</Button>
+        <Button onClick={handleRemoveNote}>Удалить</Button>
+      </Group>
+      <Space h="xl" />
+      <TextInput value={note?.name} placeholder="Введите название" onChange={(e) => handleUpdateNameNote(e.target.value)} />
+      <Space h="xl" />
+      {note && <MarkdownEditor text={note?.text} isEdit={isEdit} onChange={handleUpdateTextNote} />}
     </>
   )
 }
