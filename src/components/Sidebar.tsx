@@ -1,13 +1,13 @@
 import ListItem from '@/components/ListItem'
-import useStore from '@/hooks/useStore'
+import useNotes from '@/hooks/useNotes'
 
 function Sidebar() {
-  const store = useStore()
+  const { notes } = useNotes()
 
   return (
     <div>
-      {store.notes.map((note: INote) => (
-        <ListItem key={note.id} id={note.id} name={note.name} />
+      {notes?.map((note: INote) => (
+        <ListItem key={note.id} id={note.id} name={note.name.trim().length > 0 ? note.name : "Без названия"} />
       ))}
     </div>
   )
