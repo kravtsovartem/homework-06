@@ -42,7 +42,3 @@ interface INote {
 	text: string
 }
 
-interface IStore {
-	notes: INote[]
-	setNoteText(id: number, text: string): void
-}
