@@ -56,14 +56,16 @@ export default function MarkdownEditor({ text, isEdit = false, onChange }: IMark
             toolbarClassName: 'my-classname',
             toolbarContents: () => (
               <>
-                <DiffSourceToggleWrapper options={['source']}>
-                  <BlockTypeSelect />
-                  <BoldItalicUnderlineToggles />
-                  <InsertImage />
-                  <CodeToggle />
-                  <Separator />
-                  <InsertTable />
-                </DiffSourceToggleWrapper>
+                {isEdit && (
+                  <DiffSourceToggleWrapper options={['source']}>
+                    <BlockTypeSelect />
+                    <BoldItalicUnderlineToggles />
+                    <InsertImage />
+                    <CodeToggle />
+                    <Separator />
+                    <InsertTable />
+                  </DiffSourceToggleWrapper>
+                )}
               </>
             ),
           }),
