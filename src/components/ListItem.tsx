@@ -1,17 +1,22 @@
-import { NavLink } from "@mantine/core"
-import { useNavigate } from "react-router-dom"
+import { NavLink } from '@mantine/core'
+import { useNavigate } from 'react-router-dom'
 
 interface IListItem {
-	id: number
-	name: string
+  name: string
+  active?: boolean
+  to?: string
 }
 
-function ListItem({ id, name }: IListItem) {
+function ListItem({ name, active, to }: IListItem) {
+  const navigate = useNavigate()
 
-	const navigate = useNavigate()
+  const handleClick = () => {
+    if (!to) return
 
-	return <NavLink onClick={() => navigate(`/note/${id}`)} label={name} />
-	 
+    navigate(to)
+  }
+
+  return <NavLink active={active} onClick={handleClick} label={name} />
 }
 
 export default ListItem
