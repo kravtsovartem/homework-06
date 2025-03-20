@@ -9,7 +9,7 @@ export default function IndexPage() {
 
   useEffect(() => {
     if (notes?.length && notes?.length != 0) {
-      navigate(`/note/${notes[notes.length - 1].id}`)
+      navigate(`/note/${notes.at(0)?.id}`)
     }
   }, [navigate, notes])
 
