@@ -16,33 +16,39 @@ import {
   InsertTable,
   Separator,
   tablePlugin,
-  markdownShortcutPlugin,
+  markdownShortcutPlugin
 } from '@mdxeditor/editor'
 import '@mdxeditor/editor/style.css'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface IMarkdownEditorProps {
+	id: number
   text: string | undefined
   isEdit?: boolean
   onChange?: (text: string) => void
 }
 
-export default function MarkdownEditor({ text, isEdit = false, onChange }: IMarkdownEditorProps) {
+export default function MarkdownEditor({ id, text, isEdit = false, onChange }: IMarkdownEditorProps) {
   const editor = useRef<MDXEditorMethods>(null)
 
+	const [currentEditorId, setEditorId] = useState(id)
+
   useEffect(() => {
-    if (editor.current) {
+    if (currentEditorId != id && editor.current) {
       editor.current.setMarkdown(text ?? '')
+			editor.current.focus()
+			setEditorId(id)
     }
-  }, [text])
+  }, [currentEditorId, text])
 
   return (
-    <div style={{ zIndex: 102 }}>
+    <div>
       <MDXEditor
         ref={editor}
         readOnly={!isEdit}
         markdown={text ?? ''}
         onChange={onChange}
+				autoFocus
         plugins={[
           headingsPlugin(),
           listsPlugin(),
@@ -74,17 +80,3 @@ export default function MarkdownEditor({ text, isEdit = false, onChange }: IMark
     </div>
   )
 }
-// import Markdown from 'marked-react'
-
-// const style = {
-// 	textArea: {
-// 		minWidth: '100%',
-// 		maxWidth: '100%',
-// 	}
-// }
-
-// export default function MarkdownEditor({ text, isEdit = false }: IMarkdownEditorProps) {
-//   if (isEdit) return <textarea style={style.textArea}>{text}</textarea>
-
-//   return <Markdown>{text}</Markdown>
-// }
