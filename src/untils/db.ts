@@ -12,10 +12,10 @@ db.version(1).stores({
 	notes: '++id, name, text' // primary key "id" (for the runtime!)
 });
 
-await db.transaction('rw', db.notes, async () => {
+db.transaction('rw', db.notes, async () => {
 	await db.notes.put({
 		id: 1,
-		name: 'Headers',
+		name: 'Headers Example',
 		text: `# h1 Heading 8-)
 ## h2 Heading
 ### h3 Heading
@@ -34,7 +34,7 @@ Alt-H2
 
 	await db.notes.put({
 		id: 2,
-		name: 'Emphasis',
+		name: 'Emphasis Example',
 		text: `Emphasis, aka italics, with *asterisks* or _underscores_.
 
 Strong emphasis, aka bold, with **asterisks** or __underscores__.
@@ -56,7 +56,7 @@ _This is italic text_
 
 	await db.notes.put({
 		id: 3,
-		name: 'Task lists',
+		name: 'Task lists Example',
 		text: `- [x] Finish my changes
 - [ ] Push my commits to GitHub
 - [ ] Open a pull request
