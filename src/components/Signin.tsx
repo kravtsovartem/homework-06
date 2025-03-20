@@ -1,6 +1,5 @@
 import { Box, Button, Center, TextInput } from '@mantine/core'
 import { useRef, useState } from 'react'
-import { MdAlternateEmail, MdPassword } from 'react-icons/md'
 
 interface ISigninProps {
   onSubmit: (value: ILoginFormData) => void
@@ -11,15 +10,13 @@ const loginForm: IFormInputs[] = [
     name: 'login',
     type: 'text',
     label: 'Логин',
-    placeholder: 'Введите логин',
-    icon: <MdAlternateEmail />,
+    placeholder: 'Введите логин'
   },
   {
     name: 'password',
     type: 'password',
     label: 'Пароль',
-    placeholder: 'Введите пароль',
-    icon: <MdPassword />,
+    placeholder: 'Введите пароль'
   },
 ]
 
